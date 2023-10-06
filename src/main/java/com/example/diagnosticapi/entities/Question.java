@@ -2,6 +2,8 @@ package com.example.diagnosticapi.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="question")
 public class Question {
@@ -9,8 +11,6 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String qt;
-    @Enumerated(EnumType.STRING)
-    private Choix choix;
     @ManyToOne()
     @JoinColumn(name="fk_category_id")
     private Category category;
@@ -27,15 +27,8 @@ public class Question {
         return qt;
     }
 
-    public Choix getChoix() {
-        return choix;
-    }
-
-    public void setChoix(Choix choix) {
-        this.choix = choix;
-    }
-
     public void setQt(String qt) {
         this.qt = qt;
     }
+
 }
