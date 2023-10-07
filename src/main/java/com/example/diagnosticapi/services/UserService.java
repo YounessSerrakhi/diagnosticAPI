@@ -2,6 +2,7 @@ package com.example.diagnosticapi.services;
 
 import com.example.diagnosticapi.entities.User;
 import com.example.diagnosticapi.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,9 @@ public class UserService {
 
         return userOptional.isPresent(); // Returns true if a user is found, false otherwise
     }
+      public User getUserById(Long userId) {
+          return userRepository.findById(userId)
+                  .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+      }
+
 }
