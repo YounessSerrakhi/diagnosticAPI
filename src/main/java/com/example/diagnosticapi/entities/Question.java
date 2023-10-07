@@ -2,7 +2,8 @@ package com.example.diagnosticapi.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="question")
@@ -14,6 +15,8 @@ public class Question {
     @ManyToOne()
     @JoinColumn(name="fk_category_id")
     private Category category;
+    @OneToMany(mappedBy = "question")
+    private Set<QuestionChoix> questionChoix = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -31,4 +34,11 @@ public class Question {
         this.qt = qt;
     }
 
+    public Set<QuestionChoix> getQuestionChoix() {
+        return questionChoix;
+    }
+
+    public void setQuestionChoix(Set<QuestionChoix> questionChoix) {
+        this.questionChoix = questionChoix;
+    }
 }

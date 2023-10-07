@@ -1,8 +1,7 @@
 package com.example.diagnosticapi.entities;
 
 import jakarta.persistence.*;
-
-import java.util.List;
+import java.util.*;
 @Entity
 public class Choix {
     @Id
@@ -10,6 +9,8 @@ public class Choix {
     private Long id;
     private String choix;
     private Integer note;
+    @OneToMany(mappedBy = "choix")
+    private Set<QuestionChoix> questionChoixSet = new HashSet<>();
     public Long getId() {
         return id;
     }
@@ -32,5 +33,13 @@ public class Choix {
 
     public void setNote(Integer note) {
         this.note = note;
+    }
+
+    public Set<QuestionChoix> getQuestionChoixSet() {
+        return questionChoixSet;
+    }
+
+    public void setQuestionChoixSet(Set<QuestionChoix> questionChoixSet) {
+        this.questionChoixSet = questionChoixSet;
     }
 }
