@@ -1,5 +1,6 @@
 package com.example.diagnosticapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="question")
+@JsonIgnoreProperties("questionChoix")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
