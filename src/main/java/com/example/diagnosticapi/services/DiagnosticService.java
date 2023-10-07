@@ -13,7 +13,7 @@ public class DiagnosticService {
     DiagnosticRepository diagnosticRepository;
 
     public List<Diagnostic> getDiagnostic() {
-        List<Diagnostic> diag = diagnosticRepository.findAll();
+        List<Diagnostic> diag = diagnosticRepository.findDiagnostic();
         return diag;
     }
 
