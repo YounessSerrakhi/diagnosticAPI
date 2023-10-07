@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface DiagnosticRepository extends JpaRepository<Diagnostic,Long> {
+
     @Query("SELECT DISTINCT d FROM Diagnostic d " +
             "LEFT JOIN FETCH d.cat ct ")
     List<Diagnostic> findDiagnostic();
 }
+

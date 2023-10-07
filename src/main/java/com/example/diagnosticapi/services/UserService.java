@@ -10,10 +10,16 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
-    UserRepository userRepository;
-    public  User getUserById(Long userId) {
+    private UserRepository userRepository;
+
+    public boolean checkUserAttributes(String username, String password) {
+        Optional<User> userOptional = userRepository.findByUsernameAndPassword(username, password);
+
+        return userOptional.isPresent(); // Returns true if a user is found, false otherwise
+    }
+      public User getUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
-    }
 }
