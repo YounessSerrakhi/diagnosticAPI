@@ -19,7 +19,9 @@ public class UserService {
 
         return userOptional.isPresent(); // Returns true if a user is found, false otherwise
     }
-      public User getUserById(Long userId) {
+
+    public User getUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+    }
 }
