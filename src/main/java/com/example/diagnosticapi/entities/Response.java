@@ -10,7 +10,6 @@ public class Response {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @ManyToOne
     @JoinColumn(name = "question_choix_id")
     private QuestionChoix questionChoix;

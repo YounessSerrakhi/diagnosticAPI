@@ -3,9 +3,14 @@ package com.example.diagnosticapi.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "questionChoix")
-@JsonIgnoreProperties("choix")
+//@JsonIgnoreProperties("choix")
+
+
+
 public class QuestionChoix {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +21,9 @@ public class QuestionChoix {
     @ManyToOne
     @JoinColumn(name="choix_id")
     private Choix choix;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id",referencedColumnName = "id")
+    private List<Response> responses;
     public Question getQuestion() {
         return question;
     }
@@ -27,6 +34,9 @@ public class QuestionChoix {
 
     public Choix getChoix() {
         return choix;
+    }
+    public int getNote() {
+        return choix.getNote();
     }
 
     public void setChoix(Choix choix) {
