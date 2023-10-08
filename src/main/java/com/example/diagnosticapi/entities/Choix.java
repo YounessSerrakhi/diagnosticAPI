@@ -19,9 +19,9 @@ public class Choix {
         this.id = id;
     }
 
-    public String getChoix() {
+    /*public String getChoix() {
         return choix;
-    }
+    }*/
 
     public void setChoix(String choix) {
         this.choix = choix;
@@ -35,9 +35,9 @@ public class Choix {
         this.note = note;
     }
 
-    public Set<QuestionChoix> getQuestionChoixSet() {
+    /*public Set<QuestionChoix> getQuestionChoixSet() {
         return questionChoixSet;
-    }
+    }*/
 
     public void setQuestionChoixSet(Set<QuestionChoix> questionChoixSet) {
         this.questionChoixSet = questionChoixSet;

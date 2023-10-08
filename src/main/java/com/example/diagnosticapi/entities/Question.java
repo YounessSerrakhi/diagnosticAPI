@@ -14,11 +14,27 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String qt;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @ManyToOne()
     @JoinColumn(name="fk_category_id")
     private Category category;
     @OneToMany(mappedBy = "question")
     private Set<QuestionChoix> questionChoix = new HashSet<>();
+    public Set<QuestionChoix> getQuestionChoix() {
+        return questionChoix;
+    }
+
+    public void setQuestionChoix(Set<QuestionChoix> questionChoix) {
+        this.questionChoix = questionChoix;
+    }
 
     public Long getId() {
         return id;
@@ -36,11 +52,5 @@ public class Question {
         this.qt = qt;
     }
 
-    public Set<QuestionChoix> getQuestionChoix() {
-        return questionChoix;
-    }
 
-    public void setQuestionChoix(Set<QuestionChoix> questionChoix) {
-        this.questionChoix = questionChoix;
-    }
 }

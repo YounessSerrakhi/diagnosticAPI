@@ -1,4 +1,5 @@
 package com.example.diagnosticapi.services;
+import com.example.diagnosticapi.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -13,8 +14,10 @@ public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
     public List<Question> getQuestion(){
-        List<Question> questions = questionRepository.findAll();
-        return questions;
+        return questionRepository.findAll();
+    }
+    public List<Question> getQuestionByCategorie(Category category){
+        return questionRepository.findByCategory(category);
     }
     public Question insertQuestion(Question question) {
         return questionRepository.save(question);
@@ -22,4 +25,5 @@ public class QuestionService {
     public List<Question> insertQuestion(List<Question> questions) {
         return questionRepository.saveAll(questions);
     }
+
 }

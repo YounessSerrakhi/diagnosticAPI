@@ -20,6 +20,9 @@ public class User {
     private String adresse;
     private String username;
     private String password;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id",referencedColumnName = "id")
+    private List<Response> responses;
 
     public List<Response> getResponses() {
         return responses;
@@ -28,10 +31,6 @@ public class User {
     public void setResponses(List<Response> responses) {
         this.responses = responses;
     }
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id",referencedColumnName = "id")
-    private List<Response> responses;
 
     public String getPassword() {
         return password;
