@@ -30,11 +30,16 @@ public class UserController {
     }
 
     @GetMapping("/globalResult")
-    public int getGlobalResult(@RequestParam Long userId) {
-        return userService.calculateGlobalResult(userId);
+    public String getGlobalResult(@RequestParam Long userId) {
+        int global = userService.calculateGlobalResult(userId);
+        String user = userService.getUserById(userId).getName();
+        return "Le result global de "+user+" est : "+global+" points";
     }
     @GetMapping("/categoryResult")
-    public Map<String, Integer> getCategoryResult() {
-        return userService.calculateCategorieResult(1L);
+    public String getCategoryResult(@RequestParam Long userId) {
+        int global = userService.calculateGlobalResult(userId);
+        String user = userService.getUserById(userId).getName();
+        Map<String,Integer> CategoryResult = userService.calculateCategorieResult(userId);
+        return "Le resultat par categorie de "+user+" est : \n"+CategoryResult;
     }
 }

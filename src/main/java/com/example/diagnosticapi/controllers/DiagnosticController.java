@@ -13,7 +13,7 @@ import java.util.List;
 public class DiagnosticController {
     @Autowired  //injection de dependence pour injecter le service dans le controller
     private DiagnosticService diagnosticService;
-    @RequestMapping(method = RequestMethod.GET ,value = "/diagnostic")
+    @RequestMapping(method = RequestMethod.GET ,value = "/questionnaire")
     public List<Diagnostic> getDiagnostic(){
         return diagnosticService.getDiagnostic();
     }
