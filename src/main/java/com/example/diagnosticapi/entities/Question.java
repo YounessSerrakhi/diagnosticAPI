@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="question")
-@JsonIgnoreProperties("questionChoix")
+@JsonIgnoreProperties({"questionChoix", "category"})
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
