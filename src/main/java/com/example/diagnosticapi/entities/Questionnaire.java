@@ -5,23 +5,23 @@ import java.util.List;
 
 @Entity
 @Transactional
-@Table(name = "diagnostic")
-public class Diagnostic {
+@Table(name = "questionnaire")
+public class Questionnaire {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         private String libelle;
         @OneToMany(cascade = CascadeType.ALL)
-        @JoinColumn(name="fk_diagnostic_id",referencedColumnName = "id")
+        @JoinColumn(name="fk_questionnaire_id",referencedColumnName = "id")
         private List<Category> cat;
 
-        public Diagnostic(Long id, String libelle) {
+        public Questionnaire(Long id, String libelle) {
             this.id = id;
             this.libelle = libelle;
         }
 
-        public Diagnostic() {
+        public Questionnaire() {
 
         }
 
