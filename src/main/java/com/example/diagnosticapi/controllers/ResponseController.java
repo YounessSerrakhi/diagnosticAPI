@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ResponseController {
@@ -25,25 +27,33 @@ public class ResponseController {
     QuestionChoixService questionChoixService;
 
     @PostMapping("/storeReponse")
-    public ResponseEntity<String> store(@RequestParam Long userId,@RequestParam List<Long> questions,@RequestParam List<Long> choix){
-        User user = userService.getUserById(userId);
-        boolean allResponsesSaved = true;
-        List<QuestionChoix> questionChoixs= questionChoixService.getQuestionChoix(questions,choix);
-        for(QuestionChoix questionChoix : questionChoixs){
-            Response result = responseService.saveResponse(user, questionChoix);
-            if (result == null) {
-                allResponsesSaved = false;
-                break;
+    public Map<String, String> store(@RequestParam Long userId, @RequestParam List<Long> questions, @RequestParam List<Long> choix) {
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            User user = userService.getUserById(userId);
+            List<QuestionChoix> questionChoixs = questionChoixService.getQuestionChoix(questions, choix);
+
+            boolean allResponsesSaved = true;
+
+            for (QuestionChoix questionChoix : questionChoixs) {
+                Response result = responseService.saveResponse(user, questionChoix);
+                if (result == null) {
+                    allResponsesSaved = false;
+                    break;
+                }
             }
 
+            if (allResponsesSaved) {
+                response.put("message", "stored correctly");
+            } else {
+                response.put("message", "failed");
+            }
+        } catch (Exception e) {
+            response.put("message", "An error occurred: " + e.getMessage());
         }
 
-        if (allResponsesSaved) {
-        return ResponseEntity.ok("User choices stored successfully.");
-    } else {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to store user choice.");
+        return response;
     }
-
-   }
 
 }

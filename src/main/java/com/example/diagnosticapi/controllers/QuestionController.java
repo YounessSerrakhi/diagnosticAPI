@@ -20,7 +20,7 @@ public class QuestionController {
     }
 
     @PostMapping("/add-multiple")
-    public List<Question> addQuestions(@RequestBody List<Question> questions) {
+    public Boolean addQuestions(@RequestBody List<Question> questions) {
         return questionService.insertQuestion(questions);
     }
 }

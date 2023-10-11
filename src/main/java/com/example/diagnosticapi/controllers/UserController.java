@@ -20,26 +20,26 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/auth")
-    public boolean checkUserAttributes(@RequestParam String username, @RequestParam String password) {
+    public User checkUserAttributes(@RequestParam String username, @RequestParam String password) {
         return userService.checkUserAttributes(username, password);
     }
 
-    @PostMapping("/user")
+    @GetMapping("/user")
     public User getUser(@RequestParam Long userId) {
         return userService.getUserById(userId);
     }
 
     @GetMapping("/globalResult")
-    public String getGlobalResult(@RequestParam Long userId) {
+    public int getGlobalResult(@RequestParam Long userId) {
         int global = userService.calculateGlobalResult(userId);
         String user = userService.getUserById(userId).getName();
-        return "Le result global de "+user+" est : "+global+" points";
+        return global;
     }
     @GetMapping("/categoryResult")
-    public String getCategoryResult(@RequestParam Long userId) {
+    public Map<Long,Integer> getCategoryResult(@RequestParam Long userId) {
         int global = userService.calculateGlobalResult(userId);
         String user = userService.getUserById(userId).getName();
-        Map<String,Integer> CategoryResult = userService.calculateCategorieResult(userId);
-        return "Le resultat par categorie de "+user+" est : \n"+CategoryResult;
+        Map<Long,Integer> CategoryResult = userService.calculateCategorieResult(userId);
+        return CategoryResult;
     }
 }

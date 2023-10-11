@@ -19,9 +19,9 @@ public class Choix {
         this.id = id;
     }
 
-    /*public String getChoix() {
+    public String getChoix() {
         return choix;
-    }*/
+    }
 
     public void setChoix(String choix) {
         this.choix = choix;

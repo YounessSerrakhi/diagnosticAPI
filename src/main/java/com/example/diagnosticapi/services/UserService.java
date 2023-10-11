@@ -14,12 +14,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean checkUserAttributes(String username, String password) {
+    public User checkUserAttributes(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsernameAndPassword(username, password);
 
-        return userOptional.isPresent(); // Returns true if a user is found, false otherwise
+        return userOptional.orElse(null); // Returns the User if found, null otherwise
     }
-      public User getUserById(Long userId) {
+
+    public User getUserById(Long userId) {
           return userRepository.findById(userId)
                   .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
       }
@@ -38,8 +39,8 @@ public class UserService {
         return userResponses;
     }*/
 
-    public Map<String, Integer> calculateCategorieResult(Long userId) {
-        Map<String, Integer> categorieResult = new HashMap<>();
+    public Map<Long, Integer> calculateCategorieResult(Long userId) {
+        Map<Long, Integer> categorieResult = new HashMap<>();
         User user = getUserById(userId);
         List<Response> userResponses = user.getResponses();
 
@@ -49,13 +50,13 @@ public class UserService {
             int note = response.getQuestionChoix().getChoix().getNote();
 
             // Check if the category is already in the map
-            if (categorieResult.containsKey(category.getName())) {
+            if (categorieResult.containsKey(category.getId())) {
                 // If it is, add the note to the existing total
-                int currentTotal = categorieResult.get(category.getName());
-                categorieResult.put(category.getName(), currentTotal + note);
+                int currentTotal = categorieResult.get(category.getId());
+                categorieResult.put(category.getId(), currentTotal + note);
             } else {
                 // If it's not, create a new entry in the map
-                categorieResult.put(category.getName(), note);
+                categorieResult.put(category.getId(), note);
             }
         }
         for (Integer value : categorieResult.values()) {

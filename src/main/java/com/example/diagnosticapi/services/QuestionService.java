@@ -20,10 +20,19 @@ public class QuestionService {
         return questionRepository.findByCategory(category);
     }
     public Question insertQuestion(Question question) {
-        return questionRepository.save(question);
+        try {
+            return questionRepository.save(question);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to insert the question: " + e.getMessage());
+        }
     }
-    public List<Question> insertQuestion(List<Question> questions) {
-        return questionRepository.saveAll(questions);
+    public boolean insertQuestion(List<Question> questions) {
+        try {
+            questionRepository.saveAll(questions);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

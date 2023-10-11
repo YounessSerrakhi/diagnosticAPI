@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+//@RequestMapping("/api/questionnaire")
 public class QuestionnaireController {
     @Autowired  //injection de dependence pour injecter le service dans le controller
     private QuestionnaireService questionnaireService;
