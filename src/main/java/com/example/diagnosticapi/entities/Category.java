@@ -12,8 +12,8 @@ public class Category {
     private Long id;
     private String name;
     @ManyToOne()
-    @JoinColumn(name="fk_diagnostic_id")
-    private Diagnostic diagnostic;
+    @JoinColumn(name="fk_questionnaire_id")
+    private Questionnaire questionnaire;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_category_id",referencedColumnName = "id")
     private List<Question> questions;
