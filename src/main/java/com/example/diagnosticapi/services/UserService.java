@@ -48,14 +48,21 @@ public class UserService {
             Category category = question.getCategory();
             int note = response.getQuestionChoix().getChoix().getNote();
 
+            // Check if the category is already in the map
             if (categorieResult.containsKey(category.getName())) {
+                // If it is, add the note to the existing total
                 int currentTotal = categorieResult.get(category.getName());
                 categorieResult.put(category.getName(), currentTotal + note);
             } else {
+                // If it's not, create a new entry in the map
                 categorieResult.put(category.getName(), note);
             }
         }
-
+        for (Integer value : categorieResult.values()) {
+            int result = (value * 100) / 25;
+            System.out.println("Value: " + value);
+        }
+        categorieResult.replaceAll((key, value) -> (value * 100) / 25);
         return categorieResult;
     }
 
@@ -65,10 +72,10 @@ public class UserService {
         List<Response> userResponses = user.getResponses();
 
         for (Response response : userResponses){
-                globalResult+=response.getQuestionChoix().getNote();
+            globalResult+=response.getQuestionChoix().getNote();
         }
 
-        return globalResult;
+        return globalResult*100/25;
     }
 
 }

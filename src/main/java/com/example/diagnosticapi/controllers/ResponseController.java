@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class ResponseController {
     @Autowired
@@ -23,15 +25,21 @@ public class ResponseController {
     QuestionChoixService questionChoixService;
 
     @PostMapping("/storeReponse")
-    public ResponseEntity<String> store(@RequestParam Long userId,@RequestParam Long questionChoixId){
+    public ResponseEntity<String> store(@RequestParam Long userId,@RequestParam List<Long> questions,@RequestParam List<Long> choix){
         User user = userService.getUserById(userId);
-        QuestionChoix questionChoix = questionChoixService.getQuestionChoixById(questionChoixId);
+        boolean allResponsesSaved = true;
+        List<QuestionChoix> questionChoixs= questionChoixService.getQuestionChoix(questions,choix);
+        for(QuestionChoix questionChoix : questionChoixs){
+            Response result = responseService.saveResponse(user, questionChoix);
+            if (result == null) {
+                allResponsesSaved = false;
+                break;
+            }
 
+        }
 
-    Response result = responseService.saveResponse(user, questionChoix);
-
-        if (result != null) {
-        return ResponseEntity.ok("User choice stored successfully.");
+        if (allResponsesSaved) {
+        return ResponseEntity.ok("User choices stored successfully.");
     } else {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to store user choice.");
     }
